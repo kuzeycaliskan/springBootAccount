@@ -72,6 +72,7 @@ data class Account(
         /***
          * OneToMany, ManyToOne iliskisi kurdugum icin, hashcode'umuzu kendimiz uretmeliyiz.
          * Aksi hashcode uzerinden karsilastirma yapildigi icin, halde benim nesnem loop'a giriyor
+         * a.equals(b) function'unu override ettim.
          */
         override fun equals(other: Any?): Boolean {
                 if (this === other) return true
