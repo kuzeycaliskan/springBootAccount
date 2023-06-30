@@ -1,5 +1,6 @@
-package com.folksdev.account.dto;
+package com.folksdev.account.dto.converter;
 
+import com.folksdev.account.dto.AccountDto;
 import com.folksdev.account.model.Account;
 import org.springframework.stereotype.Component;
 
