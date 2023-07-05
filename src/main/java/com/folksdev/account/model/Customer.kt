@@ -13,20 +13,24 @@ import javax.persistence.*
 @Entity
 data class Customer(
 
+        /***
+         * ? koydugum variable'lara default degeri kendim atamam gerek. Eger atamayacaksam da constructor yazmam gerek
+         * Aksi halde constructor bulamadigina dair hata firlatiyor.
+         */
         @Id
         @GeneratedValue(generator = "UUID")
         @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-        val id: String?,
+        val id: String? = "",
 
-        val name:String?,
-        val surname:String?,
+        val name:String? = "",
+        val surname:String? = "",
 
         /***
          * Ben customer'i cektigimde customer'a ait accountlari da cekebilmek istiyorum.
          * O yuzden one to many kullandik.
          */
         @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
-        val account: Set<Account>?
+        val account: Set<Account>? = setOf()
 ){
         override fun equals(other: Any?): Boolean {
                 if (this === other) return true
