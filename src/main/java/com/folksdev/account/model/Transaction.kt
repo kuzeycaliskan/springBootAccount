@@ -18,7 +18,7 @@ data class Transaction(
         val transactionDate: LocalDateTime?,
 
         //Transaction dan account bilgisine erisebilmek icin
-        @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = [CascadeType.ALL])
+        @ManyToOne(fetch = FetchType.LAZY, optional = false)
         @JoinColumn(name = "account_id", nullable = false)
         val account: Account
 
