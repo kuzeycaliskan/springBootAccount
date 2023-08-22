@@ -15,7 +15,7 @@ data class Transaction(
         val id: String?,
         val transactionType: TransactionType? = TransactionType.INITIAL, //default INITIAL olacak
         val amount: BigDecimal?, //double yerine BigDecimal kullanilmali
-        val transactionDate: LocalDateTime,
+        val transactionDate: LocalDateTime?,
 
         //Transaction dan account bilgisine erisebilmek icin
         @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = [CascadeType.ALL])
