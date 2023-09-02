@@ -19,6 +19,9 @@ public class AccountController {
         this.accountService = accountService;
     }
 
+    /***
+     * @PathVariable ve @RequestBody farki: PathVariable URL'den alirken, @RequestBody json'dan parametre alir
+     */
     @PostMapping
     public ResponseEntity<AccountDto> createAccount(@RequestBody CreateAccountRequest request){
         return ResponseEntity.ok(accountService.createAccount(request));
