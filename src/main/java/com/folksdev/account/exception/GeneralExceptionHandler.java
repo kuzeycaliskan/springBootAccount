@@ -15,12 +15,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 /***
- * @RestControllerAdvice: Uygulama icerisinde throw ettigim tum exceptionlari yakalar ve
- * bir HTTP response uretir
+ * @RestControllerAdvice: Uygulama icerisinde throw ettigim tum exceptionlari yakalar ve bir HTTP response uretir
+ * Buna ek olarak Controller'da @Valid Assertionunu kullanabilirsam da hatayi yakalayan taraf yine RestControllerAdvice
+ * olur.
+ * @Valid: Endpointte bir validation surecimiz var. (avax.validation library) Ben controller'ima request icin
+ * @Valid annotitaion'a koydugumda burada request'in validationu kontrol ediliyor. Eger @Valid'e aykiri bir durum
+ * olursa devreye yine RestControllerAdvice girer. Isin guzelligi, eger bir validation sorunu varsa araya Controller
+ * girmeden bu sorunu firlatir. Bu sekilde kod kalabaligindan kurtuluruz ve controller'in thread pool'una bu request
+ * hic girmedigi icin performans acisindan da yararli olur.
  */
 @RestControllerAdvice
 public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
+    /***
+     * handleMethodArgumentNotValid functionu internal server error 500 doner. Bu deger kullanici icin anlamli
+     * bir deger degil. Biz bu methodu override edicez. Bu sekilde anlamli bir exception donecegiz.
+     * CreateAccountRequest'de gorebiliriz.
+     */
     @NotNull
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
@@ -39,9 +50,10 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
     /***
      * Vermis oldugumuz exception durumu olustugunda (customerNotFound), service Controller'a haber verir
-     * Controller'da bu hatayi islemi yapar ve islem biter. Bu class'la birlikte RestControllerAdvice Service ve
-     * Controller arasina girer. Ben bu hatayi taniyorum bu hatayi bana ver diyor. Bu sekilde bir HTTP response
-     * olusturuyor ve kullanciya HTTP response donuyor.
+     * Controller'da bu hata ile ilgili islem yapacaksa yapar ve islem biter. Bu class'la birlikte
+     * RestControllerAdvice Service ve Controller arasina girer(interruption).
+     * Ben bu hatayi taniyorum bu hatayi bana ver der. Bu sekilde bir HTTP response olusturuyor ve
+     * kullanciya HTTP response donuyor.
      */
     @ExceptionHandler(CustomerNotFoundException.class)
     public ResponseEntity<?> customerNotFoundExceptionHandler(CustomerNotFoundException exception)  {
