@@ -73,6 +73,7 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- Test kisminda donen json'da sadece istedigim parametreleri test etmem icin repository !-->
 		<dependency>
 			<groupId>org.hamcrest</groupId>
 			<artifactId>hamcrest-all</artifactId>
@@ -97,6 +98,7 @@
 					</compilerPlugins>
 				</configuration>
 				<dependencies>
+					<!-- jpa benden bos bir constructor istiyor. bunu cozmek icin noard dependency gerekir -->
 					<dependency>
 						<groupId>org.jetbrains.kotlin</groupId>
 						<artifactId>kotlin-maven-noarg</artifactId>
