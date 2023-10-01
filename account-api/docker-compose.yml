@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+  app:
+    image: 'kuzeycaliskan/account-api:1.0'
+    container_name: account-api
+    ports:
+      - 8080:8080
+  fe:
+    image: 'kuzeycaliskan/account-fe:1.0'
+    container_name: account-fe
+    ports:
+      - 3000:3000
