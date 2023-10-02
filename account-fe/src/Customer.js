@@ -43,7 +43,7 @@ class Customer extends Component {
                                         </p>)
                                     )
                                 }
-                                <Button color="link"><Link to={`/account/${customer.id}`}>Account</Link></Button>
+                                <Button color="link" style={{marginLeft: 30}}><Link to={`/account/${customer.id}`}>Account</Link></Button>
                             </div>
                         )}
                     </div>
