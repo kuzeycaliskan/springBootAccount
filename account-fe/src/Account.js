@@ -16,6 +16,7 @@ class Account extends Component {
         };
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     async componentDidMount() {
@@ -63,17 +64,17 @@ class Account extends Component {
                         <h2>Create Account</h2>
                         <Form onSubmit={this.handleSubmit}>
                             <FormGroup>
-                                <Label for="customerId" style={{marginRight: 30}}>Customer Id</Label>
+                                <Label for="customerId">Customer Id</Label>
                                 <Input type="text" name="customerId" id="customerId" value={createAccountRequest.customerId || ''}
                                        disabled/>
                             </FormGroup>
                             <FormGroup>
-                                <Label for="initialCredit" style={{marginRight: 30, alignItems: 'center'}}>Initial Credit</Label>
+                                <Label for="initialCredit">Initial Credit</Label>
                                 <Input type="text" name="initialCredit" id="initialCredit" value={createAccountRequest.initialCredit}
                                        onChange={this.handleChange} autoComplete="initialCredit"/>
                             </FormGroup>
                             <FormGroup>
-                                <Button color="primary" style={{marginRight: 30}} type="submit">Save</Button>{' '}
+                                <Button color="primary" type="submit">Save</Button>{' '}
                                 <Button color="secondary" tag={Link} to="/">Cancel</Button>
                             </FormGroup>
                         </Form>
