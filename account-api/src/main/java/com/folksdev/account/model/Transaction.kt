@@ -23,13 +23,14 @@ data class Transaction(
         val account: Account
 
 ){
-        constructor(amount: BigDecimal, account: Account) : this(
-                id = "",
+        constructor(amount: BigDecimal, transactionDate: LocalDateTime, account: Account) : this(
+                id = null,
                 amount = amount,
-                transactionDate = LocalDateTime.now(),
+                transactionDate = transactionDate,
                 transactionType = TransactionType.INITIAL,
                 account = account
         )
+
         override fun equals(other: Any?): Boolean {
                 if (this === other) return true
                 if (javaClass != other?.javaClass) return false
@@ -40,7 +41,9 @@ data class Transaction(
                 if (transactionType != other.transactionType) return false
                 if (amount != other.amount) return false
                 if (transactionDate != other.transactionDate) return false
-                return account == other.account
+                if (account != other.account) return false
+
+                return true
         }
 
         override fun hashCode(): Int {

@@ -20,20 +20,20 @@ data class Customer(
         @Id
         @GeneratedValue(generator = "UUID")
         @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-        val id: String? = "",
+        val id: String?,
 
-        val name:String? = "",
-        val surname:String? = "",
+        val name: String?,
+        val surname: String?,
 
         /***
          * Ben customer'i cektigimde customer'a ait accountlari da cekebilmek istiyorum.
          * O yuzden one to many kullandik.
          */
-        @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
-        val account: Set<Account>? = setOf()
+        @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+        val accounts: Set<Account>
 ){
         //Bu constructoru sadece test amacli kullaniyorum
-        constructor(name: String, surname: String) : this("", name, surname, null)
+        constructor(name: String, surname: String) : this("", name, surname, HashSet())
 
         override fun equals(other: Any?): Boolean {
                 if (this === other) return true
@@ -44,7 +44,9 @@ data class Customer(
                 if (id != other.id) return false
                 if (name != other.name) return false
                 if (surname != other.surname) return false
-                return account == other.account
+                if (accounts != other.accounts) return false
+
+                return true
         }
 
         override fun hashCode(): Int {

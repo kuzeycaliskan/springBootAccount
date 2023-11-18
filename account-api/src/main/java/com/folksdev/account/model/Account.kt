@@ -65,7 +65,7 @@ data class Account(
          * ikisini baglamis oldum. accountVariable deseydim, transaction class'indaki account nesnesinin ismini de
          * degistirmem gerekiyordu.
          */
-        @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+        @OneToMany(mappedBy = "account", fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
         val transaction: Set<Transaction> = HashSet()
 
 ){
@@ -91,7 +91,8 @@ data class Account(
                 if (balance != other.balance) return false
                 if (creationDate != other.creationDate) return false
                 if (customer != other.customer) return false
-                return transaction == other.transaction
+
+                return true
         }
 
         /***

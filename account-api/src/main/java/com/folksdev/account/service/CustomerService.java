@@ -16,9 +16,10 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private  final CustomerDtoConverter converter; //disariya expose edecegimiz icin converter'a ihtiyacimiz var
 
-    public CustomerService(CustomerRepository customerRepository, CustomerDtoConverter customerDtoConverter) {
+    public CustomerService(CustomerRepository customerRepository,
+                           CustomerDtoConverter converter) {
         this.customerRepository = customerRepository;
-        this.converter = customerDtoConverter;
+        this.converter = converter;
     }
 
     //private sadece class ici, protected sadece package ici, public her yere acik nesnelerdir
