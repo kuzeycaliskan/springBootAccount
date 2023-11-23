@@ -27,16 +27,16 @@ public class AccountApplication implements CommandLineRunner {
 		SpringApplication.run(AccountApplication.class, args);
 	}
 
-//	@Bean
-//	public OpenAPI customOpenAPI(@Value("${application-description}") String description,
-//								 @Value("${application-version}") String version){
-//		return new OpenAPI()
-//				.info(new Info()
-//						.title("Account API")
-//						.version(version)
-//						.description(description)
-//						.license(new License().name("Account API Licence")));
-//	}
+	@Bean
+	public OpenAPI customOpenAPI(@Value("${application-description}") String description,
+								 @Value("${application-version}") String version){
+		return new OpenAPI()
+				.info(new Info()
+						.title("Account API")
+						.version(version)
+						.description(description)
+						.license(new License().name("Account API Licence")));
+	}
 
 	@Bean
 	public Clock clock() {

@@ -26,6 +26,14 @@ public class AccountService {
      * Autowired ile benim account table'm immutable olmuyor. Ek olarak, benim test icin mock datami da
      * buna gore ayarlamam lazim. Testibilty'de dusuyor
      */
+    /***
+     * Normalde bir servis class'i ana bir service olarak kullanilmamali. Cok fazla sorumluluk almamali. Ancak bu class
+     * boyle oldu. Biz bu projede en onemli seyi "Account create etmeyi" yapiyoruz. Bunu da yapmak icin once createAccount
+     * functionunun ilk satirinda olan customer service'i cagirma islemini yapiyoruz. Bu islem bize bu ID'ye ait
+     * customer varsa getirir, yoksa hata firlatir. Ikincisi, account repository kullanmaliyim ki degeri kaydedeyim.
+     * Account'da transaction'a bagli. Bu yuzden onu olusturdum ki geri gondereyim. Yani aciklamasi bu. Normalde
+     * bi class'in bu kadar yogun olmasindan kaciniriz.
+     */
     private final AccountRepository accountRepository; //Bir service sadece kendine hizmet eden repository'yi kullanabilir.
     private final CustomerService customerService; //burada customer bilgisi donen function oldugu icin isime yarayacak
     private final AccountDtoConverter converter;
