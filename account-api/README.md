@@ -72,6 +72,10 @@ ___
 $ cd account
 $ docker-compose up
 ```
+```ssh
+docker build . -t account:1.0
+docker run --name account -d -p 8080:8080 account:1.0
+```
 
 #### Maven
 
