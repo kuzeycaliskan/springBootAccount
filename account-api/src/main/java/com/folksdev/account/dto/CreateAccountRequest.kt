@@ -13,6 +13,7 @@ class CreateAccountRequest(
         //String'in bos olmamasi icin kullandik. Sadece Kotlin'de bu sekilde yazabilirim
         @field:NotBlank(message = "Istedigim mesaji yazabilirim, veya bos birakabilirim. Mesaj dili OS dilinden alinir")
         val customerId: String,
+        val accountId: String,
         @field:Min(0, message = "Initial Credit value must not be negative value") //initialCredit 0 dan kucuk olmasin diye bunu kullandik.
         val initialCredit: BigDecimal
 )

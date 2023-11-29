@@ -25,7 +25,8 @@ public class AccountDtoConverter {
     }
 
     public AccountDto convert(Account from) {
-        return new AccountDto(from.getId(),
+        return new AccountDto(
+                from.getId(),
                 from.getBalance(),
                 from.getCreationDate(),
                 customerDtoConverter.convertToAccountCustomer(Optional.ofNullable(from.getCustomer())),

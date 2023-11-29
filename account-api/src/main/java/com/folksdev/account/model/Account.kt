@@ -21,7 +21,7 @@ data class Account(
         @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
         val id: String? = "",
         val balance: BigDecimal? = BigDecimal.ZERO,
-        val creationDate: LocalDateTime,
+        val creationDate: LocalDateTime?,
 
 
         /***
@@ -103,7 +103,7 @@ data class Account(
         override fun hashCode(): Int {
                 var result = id?.hashCode() ?: 0
                 result = 31 * result + (balance?.hashCode() ?: 0)
-                result = 31 * result + creationDate.hashCode()
+                result = 31 * result + (creationDate?.hashCode() ?: 0)
                 result = 31 * result + (customer?.hashCode() ?: 0)
                 return result
         }

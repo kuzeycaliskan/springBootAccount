@@ -3,6 +3,7 @@ package com.folksdev.account.service;
 import com.folksdev.account.dto.AccountDto;
 import com.folksdev.account.dto.CreateAccountRequest;
 import com.folksdev.account.dto.converter.AccountDtoConverter;
+import com.folksdev.account.exception.AccountNotFoundException;
 import com.folksdev.account.model.Account;
 import com.folksdev.account.model.Customer;
 import com.folksdev.account.model.Transaction;
@@ -36,7 +37,7 @@ public class AccountService {
      */
     private final AccountRepository accountRepository; //Bir service sadece kendine hizmet eden repository'yi kullanabilir.
     private final CustomerService customerService; //burada customer bilgisi donen function oldugu icin isime yarayacak
-    private final AccountDtoConverter converter;
+    private final AccountDtoConverter accountDtoConverter;
     private final Clock clock;
 
     public AccountService(AccountRepository accountRepository,
@@ -44,17 +45,22 @@ public class AccountService {
                           AccountDtoConverter converter, Clock clock) {
         this.accountRepository = accountRepository;
         this.customerService = customerService;
-        this.converter = converter;
+        this.accountDtoConverter = converter;
         this.clock = clock;
     }
 
     public AccountDto createAccount(CreateAccountRequest createAccountRequest) {
+        Account account;
         Customer customer = customerService.findCustomerById(createAccountRequest.getCustomerId());
 
-        Account account = new Account(
-                customer,
-                createAccountRequest.getInitialCredit(),
-                getLocalDateTimeNow());
+        if(createAccountRequest.getAccountId().isEmpty()){
+            account = new Account(
+                    customer,
+                    createAccountRequest.getInitialCredit(),
+                    getLocalDateTimeNow());
+        }else{
+            account = findAccountById(createAccountRequest.getAccountId());
+        }
 
         if (createAccountRequest.getInitialCredit().compareTo(BigDecimal.ZERO) > 0) {
             Transaction transaction = new Transaction(
@@ -64,7 +70,7 @@ public class AccountService {
 
             account.getTransaction().add(transaction);
         }
-        return converter.convert(accountRepository.save(account));
+        return accountDtoConverter.convert(accountRepository.save(account));
     }
 
     private LocalDateTime getLocalDateTimeNow() {
@@ -73,4 +79,16 @@ public class AccountService {
                 instant,
                 Clock.systemDefaultZone().getZone());
     }
+
+    public AccountDto getAccountById(String accountId){
+        return accountDtoConverter.convert(findAccountById(accountId));
+    }
+
+    private Account findAccountById(String accountId) {
+        return accountRepository.findById(accountId)
+                .orElseThrow(
+                        () -> new AccountNotFoundException("Account could not found by id: " + accountId));
+    }
+
+
 }

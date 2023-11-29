@@ -4,10 +4,7 @@ import com.folksdev.account.dto.AccountDto;
 import com.folksdev.account.dto.CreateAccountRequest;
 import com.folksdev.account.service.AccountService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -27,5 +24,10 @@ public class AccountController {
     @PostMapping
     public ResponseEntity<AccountDto> createAccount(@Valid @RequestBody CreateAccountRequest request){
         return ResponseEntity.ok(accountService.createAccount(request));
+    }
+
+    @GetMapping("/{accountId}")
+    public ResponseEntity<AccountDto> getAccountById(@PathVariable String accountId){
+        return ResponseEntity.ok(accountService.getAccountById(accountId));
     }
 }
