@@ -95,3 +95,10 @@ $ npm start
 
 ### Swagger UI will be run on this url
 `http://localhost:${PORT}/swagger-ui.html`
+
+### Known Bugs
+
+---
+- (FIXED) Why Transaction is sending with POST account request?
+  Transaction and account endpoints should be decoupled.
+- Balance is always displayed as 0.
