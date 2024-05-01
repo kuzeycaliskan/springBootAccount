@@ -55,6 +55,7 @@ public class AccountService {
 
         account = new Account(
                 customer,
+                BigDecimal.ZERO,
                 getLocalDateTimeNow());
 
         return accountDtoConverter.convert(accountRepository.save(account));
