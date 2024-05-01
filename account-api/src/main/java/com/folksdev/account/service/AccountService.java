@@ -53,23 +53,10 @@ public class AccountService {
         Account account;
         Customer customer = customerService.findCustomerById(createAccountRequest.getCustomerId());
 
-        if(createAccountRequest.getAccountId().isEmpty()){
-            account = new Account(
-                    customer,
-                    createAccountRequest.getInitialCredit(),
-                    getLocalDateTimeNow());
-        }else{
-            account = findAccountById(createAccountRequest.getAccountId());
-        }
+        account = new Account(
+                customer,
+                getLocalDateTimeNow());
 
-        if (createAccountRequest.getInitialCredit().compareTo(BigDecimal.ZERO) > 0) {
-            Transaction transaction = new Transaction(
-                    createAccountRequest.getInitialCredit(),
-                    getLocalDateTimeNow(),
-                    account);
-
-            account.getTransaction().add(transaction);
-        }
         return accountDtoConverter.convert(accountRepository.save(account));
     }
 
@@ -84,7 +71,7 @@ public class AccountService {
         return accountDtoConverter.convert(findAccountById(accountId));
     }
 
-    private Account findAccountById(String accountId) {
+    public Account findAccountById(String accountId) {
         return accountRepository.findById(accountId)
                 .orElseThrow(
                         () -> new AccountNotFoundException("Account could not found by id: " + accountId));

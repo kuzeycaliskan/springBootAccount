@@ -1,13 +1,13 @@
 package com.folksdev.account.controller;
 
 
+import com.folksdev.account.dto.CreateTransactionRequest;
 import com.folksdev.account.dto.TransactionDto;
 import com.folksdev.account.service.TransactionService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/v1/transaction")
@@ -17,6 +17,11 @@ public class TransactionController {
 
     public TransactionController(TransactionService transactionService) {
         this.transactionService = transactionService;
+    }
+
+    @PostMapping
+    public ResponseEntity<TransactionDto> createTransaction(@Valid @RequestBody CreateTransactionRequest request){
+        return ResponseEntity.ok(transactionService.createTransaction(request));
     }
 
     @GetMapping("/{transactionId}")
