@@ -1,5 +1,6 @@
 package com.folksdev.account.service;
 
+import com.folksdev.account.dto.CreateCustomerRequest;
 import com.folksdev.account.dto.CustomerDto;
 import com.folksdev.account.dto.converter.CustomerDtoConverter;
 import com.folksdev.account.exception.CustomerNotFoundException;
@@ -14,12 +15,12 @@ import java.util.stream.Collectors;
 @Service
 public class CustomerService {
     private final CustomerRepository customerRepository;
-    private  final CustomerDtoConverter converter; //disariya expose edecegimiz icin converter'a ihtiyacimiz var
+    private  final CustomerDtoConverter customerDtoConverter; //disariya expose edecegimiz icin converter'a ihtiyacimiz var
 
     public CustomerService(CustomerRepository customerRepository,
                            CustomerDtoConverter converter) {
         this.customerRepository = customerRepository;
-        this.converter = converter;
+        this.customerDtoConverter = converter;
     }
 
     //private sadece class ici, protected sadece package ici, public her yere acik nesnelerdir
@@ -35,12 +36,23 @@ public class CustomerService {
      * icin getCustomerById metodunu CustomerDtoConverter'dan cagirarak yapacagiz
      */
     public CustomerDto getCustomerById(String customerId) {
-        return  converter.convertToCustomerDto(findCustomerById(customerId));
+        return  customerDtoConverter.convertToCustomerDto(findCustomerById(customerId));
     }
 
     public List<CustomerDto> getAllCustomer() {
         return customerRepository.findAll().stream()
-                .map(converter::convertToCustomerDto)
+                .map(customerDtoConverter::convertToCustomerDto)
                 .collect(Collectors.toList());
+    }
+
+    public CustomerDto createCustomer(CreateCustomerRequest request) {
+        Customer customer;
+
+        customer = new Customer(
+                request.getCustomerName(),
+                request.getCustomerSurname()
+        );
+
+        return customerDtoConverter.convertToCustomerDto(customerRepository.save(customer));
     }
 }
