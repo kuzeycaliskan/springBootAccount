@@ -45,9 +45,9 @@ public class AccountApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Customer customer = customerRepository.save(new Customer("Kuzey", "Caliskan"));
-		Customer customer2 = customerRepository.save(new Customer("Burak", "Gunduz"));
-		System.out.println(customer);
-		System.out.println(customer2);
+//		Customer customer = customerRepository.save(new Customer("Kuzey", "Caliskan"));
+//		Customer customer2 = customerRepository.save(new Customer("Burak", "Gunduz"));
+//		System.out.println(customer);
+//		System.out.println(customer2);
 	}
 }
