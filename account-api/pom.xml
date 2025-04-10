@@ -14,8 +14,8 @@
 	<name>account-api</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
+		<kotlin.version>1.9.22</kotlin.version>
 		<java.version>11</java.version>
-		<kotlin.version>1.5.0-M2</kotlin.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -150,7 +150,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.5.1</version>
+				<version>3.10.1</version>
 				<executions>
 					<execution>
 						<id>default-compile</id>
